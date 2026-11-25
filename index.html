@@ -22,12 +22,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
-<link rel="preload" href="img/fundo1.jpg" as="image">
+<link rel="preload" href="img/capa.jpg" as="image">
 <style>
   :root{--verde:#0b3a2c;--verde-txt:#0e3a2d;--ouro:#c9a040;--ouro-esc:#80611f;--u:0.36px}
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:#082d22}
   body{font-family:"Cormorant Garamond",Georgia,serif;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+  .tela{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0b3a2c;z-index:10;transition:opacity .9s ease}
+  .tela.oculta{opacity:0;pointer-events:none}
+  .quadro{position:relative;height:100%;width:100%;max-width:calc(100vh * 9 / 16);max-height:calc(100vw * 16 / 9)}
+  .quadro img,.quadro video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .tela .fundo-tela{position:absolute;inset:-60px;background:url(img/capa.jpg) center/cover;filter:blur(28px) saturate(.9);opacity:.9}
+  #capa{cursor:pointer}
+  #capa .pulso{position:absolute;left:50%;top:21.5%;width:76%;height:9%;transform:translate(-50%,-50%);border-radius:60px;animation:pulsoCapa 2.4s ease-in-out infinite;pointer-events:none}
+  @keyframes pulsoCapa{0%,100%{box-shadow:0 0 0 0 rgba(230,196,110,0);background:rgba(230,196,110,0)}50%{box-shadow:0 0 40px 10px rgba(230,196,110,.12);background:rgba(230,196,110,.05)}}
+  #pular{position:absolute;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));padding:8px 14px;border:1px solid rgba(230,196,110,.5);border-radius:30px;background:rgba(11,58,44,.6);color:#e6c77a;font:500 15px "Cormorant Garamond",serif;letter-spacing:.08em;opacity:0;transition:opacity .6s}
+  #animacao.mostra-pular #pular{opacity:1}
+  #brilho{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:20;transition:opacity .7s ease}
   #convite{max-width:540px;margin:0 auto;position:relative;box-shadow:0 0 40px rgba(0,0,0,.5)}
   .arte{position:relative;width:100%;aspect-ratio:1080/7531;overflow:hidden;opacity:0;transition:opacity .6s ease}
   .arte.pronta{opacity:1}
@@ -105,7 +116,19 @@
 </style>
 </head>
 <body>
-<main id="convite">
+<div id="capa" class="tela" role="button" aria-label="Toque para abrir o convite" tabindex="0">
+  <div class="fundo-tela"></div>
+  <div class="quadro"><img src="img/capa.jpg" alt="Envelope verde com lacre dourado. Toque para abrir!"><div class="pulso"></div></div>
+</div>
+<div id="animacao" class="tela oculta">
+  <div class="fundo-tela"></div>
+  <div class="quadro">
+    <video id="video" src="animacao.mp4" poster="img/poster.jpg" muted playsinline preload="auto"></video>
+    <button id="pular" type="button">Pular ›</button>
+  </div>
+</div>
+<div id="brilho"></div>
+<main id="convite" hidden>
   <div class="arte" id="arte">
     <div class="fundo">
       <img src="img/fundo1.jpg" alt="Foto das formandas Dra. Heloísa Menezes e Dra. Thaissa Musse">
@@ -234,12 +257,37 @@
     alvos.forEach(function(a){ obs.observe(a); });
   }
 
-  var primeira=arte.querySelector('.fundo img');
   function comecar(){
-    arte.classList.add('pronta');
+    escala(); arte.classList.add('pronta');
     setTimeout(function(){ tocarBrasao(); iniciaEntradas(); },150);
   }
-  if(primeira.complete) comecar(); else { primeira.addEventListener('load',comecar); primeira.addEventListener('error',comecar); }
+
+  /* capa + vídeo de abertura */
+  var capa=document.getElementById('capa'), anim=document.getElementById('animacao'), video=document.getElementById('video'),
+      brilho=document.getElementById('brilho'), convite=document.getElementById('convite'), aberto=false, terminou=false;
+  try{ video.load(); }catch(e){}
+  function abrir(){
+    if(aberto) return; aberto=true;
+    anim.classList.remove('oculta'); capa.classList.add('oculta');
+    var p=video.play(); if(p&&p.catch) p.catch(function(){ mostrarConvite(); });
+    setTimeout(function(){ anim.classList.add('mostra-pular'); },1200);
+    setTimeout(mostrarConvite,7000);
+  }
+  function mostrarConvite(){
+    if(terminou) return; terminou=true;
+    brilho.style.transition='opacity .35s ease'; brilho.style.opacity='1';
+    setTimeout(function(){
+      convite.hidden=false; window.scrollTo(0,0);
+      anim.classList.add('oculta'); capa.classList.add('oculta'); try{ video.pause(); }catch(e){}
+      brilho.style.transition='opacity .9s ease';
+      requestAnimationFrame(function(){ comecar(); brilho.style.opacity='0'; });
+      setTimeout(function(){ capa.remove(); anim.remove(); },1200);
+    },380);
+  }
+  capa.addEventListener('click',abrir);
+  capa.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); abrir(); } });
+  video.addEventListener('ended',mostrarConvite);
+  document.getElementById('pular').addEventListener('click',mostrarConvite);
 
   /* confirmação (link ainda não definido) */
   var rsvp=document.getElementById('rsvp');
