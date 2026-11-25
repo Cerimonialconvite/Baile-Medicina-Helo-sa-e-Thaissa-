@@ -80,26 +80,26 @@
   .contagem{position:absolute;left:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--verde-txt)}
   .cg{opacity:0;transform:translateY(14px);transition:opacity 1.2s ease,transform 1.2s ease}
   .cg.vis{opacity:1;transform:none}
-  .contagem h2{font-family:"Cinzel Decorative",serif;font-weight:400;font-size:calc(var(--u)*78);line-height:1;letter-spacing:.04em;color:var(--verde-txt)}
-  .orna{display:flex;align-items:center;gap:calc(var(--u)*14);margin:calc(var(--u)*18) 0 calc(var(--u)*22)}
-  .orna span{display:block;width:calc(var(--u)*120);height:1px;background:linear-gradient(90deg,rgba(128,97,31,0),var(--ouro-esc))}
-  .orna span:last-child{transform:scaleX(-1)}
-  .orna b{display:block;width:calc(var(--u)*10);height:calc(var(--u)*10);background:var(--ouro-esc);transform:rotate(45deg)}
-  .ampulheta{display:block;width:calc(var(--u)*250);height:auto;overflow:visible;filter:drop-shadow(0 calc(var(--u)*6) calc(var(--u)*8) rgba(60,40,10,.25))}
-  .vidro{fill:rgba(255,255,255,.35);stroke:rgba(14,58,45,.45);stroke-width:1.4}
-  .reflexo{fill:none;stroke:rgba(255,255,255,.75);stroke-width:2.2;stroke-linecap:round}
-  .fio{stroke:#c9a14e;stroke-width:2.2;stroke-dasharray:2 5;animation:cai .55s linear infinite}
-  @keyframes cai{to{stroke-dashoffset:-7}}
-  .relogio{display:flex;justify-content:center;margin-top:calc(var(--u)*30)}
-  .unidade{width:calc(var(--u)*190);position:relative}
-  .unidade+.unidade::before{content:"";position:absolute;left:0;top:12%;height:70%;width:1px;background:linear-gradient(rgba(128,97,31,0),var(--ouro-esc),rgba(128,97,31,0))}
-  .unidade b{display:block;font-weight:500;font-size:calc(var(--u)*104);line-height:1;color:var(--verde-txt);font-variant-numeric:lining-nums tabular-nums}
-  .unidade small{display:block;margin-top:calc(var(--u)*10);font-family:"Cinzel",serif;font-size:calc(var(--u)*24);letter-spacing:.2em;text-transform:uppercase;color:var(--ouro-esc)}
+  .contagem h2{font-family:"Cinzel Decorative",serif;font-weight:400;font-size:calc(var(--u)*76);line-height:1;letter-spacing:.04em;color:var(--verde-txt);margin-bottom:calc(var(--u)*30)}
+  .foil{background:linear-gradient(100deg,#9c7628 0%,#c9a04a 30%,#f6e6b0 48%,#c39838 62%,#8f6b22 100%);background-size:250% 100%;animation:foilLinha 6s ease-in-out infinite}
+  @keyframes foilLinha{0%{background-position:100% 0}40%,100%{background-position:0% 0}}
+  .filete{width:calc(var(--u)*830);height:calc(var(--u)*3);max-height:2px;min-height:1px}
+  .filete.fino{margin-top:calc(var(--u)*8)}
+  .cg.abre{transform:scaleX(0);transition:opacity .6s ease,transform 1.4s cubic-bezier(.5,0,.2,1)}
+  .cg.abre.vis{transform:scaleX(1)}
+  .relogio{display:flex;justify-content:center;align-items:stretch;margin:calc(var(--u)*30) 0}
+  .unidade{width:calc(var(--u)*205);text-align:center}
+  .unidade b{display:block;font-family:"Cinzel",serif;font-weight:400;font-size:calc(var(--u)*122);line-height:1;color:var(--verde-txt);font-variant-numeric:lining-nums tabular-nums}
+  .unidade b.troca{animation:troca .7s ease}
+  @keyframes troca{from{opacity:.15;transform:translateY(calc(var(--u)*-10))}to{opacity:1;transform:none}}
+  .unidade small{display:block;margin-top:calc(var(--u)*16);font-family:"Cinzel",serif;font-size:calc(var(--u)*24);letter-spacing:.22em;text-transform:uppercase;color:var(--ouro-esc)}
+  .sep{display:block;width:calc(var(--u)*3);max-width:2px;min-width:1px;transform:scaleY(0);transition:transform 1.2s cubic-bezier(.5,0,.2,1) .5s}
+  .relogio.vis .sep{transform:scaleY(1)}
   .chegou{display:none;margin-top:calc(var(--u)*24);font-family:"Cinzel Decorative",serif;font-size:calc(var(--u)*54);color:var(--verde-txt)}
 
   @media (prefers-reduced-motion: reduce){
     [data-fx] .in,.cg{transition:none!important;transform:none!important;filter:none!important;clip-path:none!important}
-    .balanca,.brilho,.fio{animation:none!important}
+    .balanca,.brilho,.foil{animation:none!important} .cg.abre,.sep{transform:none!important}
   }
 </style>
 </head>
@@ -181,35 +181,14 @@
 <div class="ov " data-fx="sobe" data-d="600" style="left:31.6667%;top:95.6845%;width:38.4259%;aspect-ratio:415/79" ><span class="in"><img src="img/clique.webp" alt="Clique no ícone para interagir!" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/clique.webp);mask-image:url(img/clique.webp)"></i></span></div>
 <section class="contagem" aria-label="Contagem regressiva" style="top:53.6449%;height:10.6228%">
  <h2 class="cg" data-d="0">Faltam</h2>
- <div class="orna cg" data-d="150"><span></span><b></b><span></span></div>
- <div class="cg" data-d="300"><svg class="ampulheta" viewBox="0 0 200 300" aria-hidden="true">
-<defs>
- <linearGradient id="foilA" gradientUnits="userSpaceOnUse" x1="-200" y1="0" x2="0" y2="40">
-  <stop offset="0" stop-color="#b08429"/><stop offset=".38" stop-color="#a77c25"/><stop offset=".5" stop-color="#fbe9a8"/><stop offset=".6" stop-color="#c99d3d"/><stop offset="1" stop-color="#b08429"/>
-  <animate attributeName="x1" values="-200;200;200" keyTimes="0;.35;1" dur="6s" repeatCount="indefinite"/>
-  <animate attributeName="x2" values="0;400;400" keyTimes="0;.35;1" dur="6s" repeatCount="indefinite"/>
- </linearGradient>
- <linearGradient id="areia" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2bf66"/><stop offset="1" stop-color="#b08a35"/></linearGradient>
- <clipPath id="bulboC"><path d="M52 30 C52 98 92 128 97 150 L103 150 C108 128 148 98 148 30 Z"/></clipPath>
- <clipPath id="bulboB"><path d="M97 150 C92 172 52 202 52 270 L148 270 C148 202 108 172 103 150 Z"/></clipPath>
-</defs>
-<path class="vidro" d="M52 30 C52 98 92 128 97 150 C92 172 52 202 52 270 L148 270 C148 202 108 172 103 150 C108 128 148 98 148 30 Z"/>
-<g clip-path="url(#bulboC)"><rect id="areiaCima" x="40" y="44" width="120" height="110" fill="url(#areia)"/></g>
-<line class="fio" x1="100" y1="146" x2="100" y2="268"/>
-<g clip-path="url(#bulboB)"><path id="areiaBaixo" d="M40 270 L40 262 Q100 230 160 262 L160 270 Z" fill="url(#areia)"/></g>
-<path class="reflexo" d="M60 40 C60 90 82 116 90 132 M60 262 C60 214 78 190 88 176"/>
-<g fill="url(#foilA)" stroke="#6f5419" stroke-width=".8">
- <rect x="18" y="14" width="164" height="16" rx="3"/><rect x="18" y="270" width="164" height="16" rx="3"/>
- <rect x="26" y="30" width="7" height="240" rx="2"/><rect x="167" y="30" width="7" height="240" rx="2"/>
- <circle cx="29.5" cy="10" r="5"/><circle cx="170.5" cy="10" r="5"/><circle cx="29.5" cy="290" r="5"/><circle cx="170.5" cy="290" r="5"/>
-</g>
-</svg></div>
- <div class="relogio cg" id="relogio" data-d="500">
-  <div class="unidade"><b id="d">--</b><small>dias</small></div>
-  <div class="unidade"><b id="h">--</b><small>horas</small></div>
-  <div class="unidade"><b id="m">--</b><small>min</small></div>
+ <div class="filete foil cg abre" data-d="250"></div>
+ <div class="relogio cg" id="relogio" data-d="450">
+  <div class="unidade"><b id="d">--</b><small>dias</small></div><i class="sep foil"></i>
+  <div class="unidade"><b id="h">--</b><small>horas</small></div><i class="sep foil"></i>
+  <div class="unidade"><b id="m">--</b><small>min</small></div><i class="sep foil"></i>
   <div class="unidade"><b id="s">--</b><small>seg</small></div>
  </div>
+ <div class="cg abre" data-d="650"><div class="filete foil"></div><div class="filete foil fino"></div></div>
  <div class="chegou" id="chegou">Chegou o grande dia!</div>
 </section>
   </div>
@@ -265,25 +244,16 @@
   var rsvp=document.getElementById('rsvp');
   if(rsvp) rsvp.addEventListener('click',function(e){ e.preventDefault(); });
 
-  /* contagem + ampulheta */
-  var alvo=new Date('2027-01-29T21:00:00-03:00').getTime(), comeco=new Date('2026-11-01T00:00:00-03:00').getTime();
-  var cima=document.getElementById('areiaCima'), baixo=document.getElementById('areiaBaixo'), fio=document.querySelector('.fio');
+  /* contagem */
+  var alvo=new Date('2027-01-29T21:00:00-03:00').getTime();
   var dois=function(n){ return (n<10?'0':'')+n; };
-  function areia(f){
-    cima.setAttribute('y',(150-f*106).toFixed(1));
-    var h=8+(1-f)*84;
-    baixo.setAttribute('d','M40 270 L40 '+(270-h*.55).toFixed(1)+' Q100 '+(270-h*1.45).toFixed(1)+' 160 '+(270-h*.55).toFixed(1)+' L160 270 Z');
-    if(f<=0) fio.style.display='none';
-  }
+  function poe(id,v){ var e=document.getElementById(id); v=String(v); if(e.textContent===v) return;
+    var antes=e.textContent; e.textContent=v; if(antes!=='--'){ e.classList.remove('troca'); void e.offsetWidth; e.classList.add('troca'); } }
   (function atualiza(){
     var r=alvo-Date.now();
-    areia(Math.max(0,Math.min(1,r/(alvo-comeco))));
     if(r<=0){ document.getElementById('relogio').style.display='none'; document.getElementById('chegou').style.display='block'; return; }
     var s=Math.floor(r/1000);
-    document.getElementById('d').textContent=Math.floor(s/86400);
-    document.getElementById('h').textContent=dois(Math.floor(s%86400/3600));
-    document.getElementById('m').textContent=dois(Math.floor(s%3600/60));
-    document.getElementById('s').textContent=dois(s%60);
+    poe('d',Math.floor(s/86400)); poe('h',dois(Math.floor(s%86400/3600))); poe('m',dois(Math.floor(s%3600/60))); poe('s',dois(s%60));
     setTimeout(atualiza,1000);
   })();
 })();
