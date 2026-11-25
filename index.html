@@ -39,6 +39,14 @@
   #pular{position:absolute;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));padding:8px 14px;border:1px solid rgba(230,196,110,.5);border-radius:30px;background:rgba(11,58,44,.6);color:#e6c77a;font:500 15px "Cormorant Garamond",serif;letter-spacing:.08em;opacity:0;transition:opacity .6s}
   #animacao.mostra-pular #pular{opacity:1}
   #brilho{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:20;transition:opacity .7s ease}
+  #rsvpModal{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:rgba(4,26,19,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .45s ease}
+  #rsvpModal.aberto{opacity:1;pointer-events:auto}
+  .janela{position:relative;width:min(92vw,calc(88vh * 9 / 16));aspect-ratio:9/16;max-height:92vh;display:flex;flex-direction:column;background:#f4f0e8;border:1px solid rgba(201,160,64,.75);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);transform:translateY(14px) scale(.98);transition:transform .45s ease}
+  #rsvpModal.aberto .janela{transform:none}
+  .janela header{flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:14px 48px;background:#0b3a2c;border-bottom:1px solid rgba(201,160,64,.6)}
+  .janela h3{font:400 15px "Cinzel",serif;letter-spacing:.1em;white-space:nowrap;color:#e3c578;text-transform:uppercase;text-align:center}
+  .janela .fechar{position:absolute;right:10px;top:8px;width:34px;height:34px;border:0;background:none;color:#e3c578;font-size:28px;line-height:1;cursor:pointer}
+  .janela iframe{flex:1 1 auto;width:100%;border:0;background:#f4f0e8}
   #convite{max-width:540px;margin:0 auto;position:relative;box-shadow:0 0 40px rgba(0,0,0,.5)}
   .arte{position:relative;width:100%;aspect-ratio:1080/7531;overflow:hidden;opacity:0;transition:opacity .6s ease}
   .arte.pronta{opacity:1}
@@ -199,7 +207,7 @@
 <div class="ov " data-fx="sobe" data-d="300" style="left:17.9630%;top:78.8740%;width:63.9815%;aspect-ratio:691/118" ><span class="in"><img src="img/endereco.webp" alt="Cerimonial Caminho das Árvores, Alameda das Framboesas, 151 - Caminho das Árvores, Salvador - BA" decoding="async"></span></div>
 <div class="ov " data-fx="sobe" data-d="200" style="left:15.4630%;top:81.7023%;width:69.1667%;aspect-ratio:747/444" ><span class="in"><img src="img/foto.webp" alt="Fachada do Cerimonial Caminho das Árvores" decoding="async"></span></div>
 <a class="ov botao" data-fx="pop" data-d="0" style="left:24.6296%;top:89.4304%;width:20.4630%;aspect-ratio:221/221" href="https://www.google.com/maps/search/?api=1&query=Cerimonial+Caminho+das+%C3%81rvores%2C+Alameda+das+Framboesas%2C+151%2C+Caminho+das+%C3%81rvores%2C+Salvador+-+BA" target="_blank" rel="noopener" aria-label="Abrir localização no Google Maps"><span class="in"><img src="img/btnmapa.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/btnmapa.webp);mask-image:url(img/btnmapa.webp)"></i></span></a>
-<a class="ov botao" data-fx="pop" data-d="180" style="left:56.9444%;top:89.4304%;width:20.5556%;aspect-ratio:222/221" id="rsvp" role="button" aria-label="Confirmar presença"><span class="in"><img src="img/btnrsvp.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/btnrsvp.webp);mask-image:url(img/btnrsvp.webp)"></i></span></a>
+<a class="ov botao" data-fx="pop" data-d="180" style="left:56.9444%;top:89.4304%;width:20.5556%;aspect-ratio:222/221" id="rsvp" href="#confirmar" role="button" aria-label="Confirmar presença"><span class="in"><img src="img/btnrsvp.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/btnrsvp.webp);mask-image:url(img/btnrsvp.webp)"></i></span></a>
 <div class="ov " data-fx="sobe" data-d="300" style="left:22.6852%;top:93.1882%;width:23.1481%;aspect-ratio:250/37" ><span class="in"><img src="img/txtmapa.webp" alt="Localização" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/txtmapa.webp);mask-image:url(img/txtmapa.webp)"></i></span></div>
 <div class="ov " data-fx="sobe" data-d="420" style="left:55.6481%;top:93.1616%;width:23.1481%;aspect-ratio:250/65" ><span class="in"><img src="img/txtrsvp.webp" alt="Confirme sua presença" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/txtrsvp.webp);mask-image:url(img/txtrsvp.webp)"></i></span></div>
 <div class="ov " data-fx="sobe" data-d="600" style="left:31.6667%;top:95.6845%;width:38.4259%;aspect-ratio:415/79" ><span class="in"><img src="img/clique.webp" alt="Clique no ícone para interagir!" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/clique.webp);mask-image:url(img/clique.webp)"></i></span></div>
@@ -217,6 +225,12 @@
 </section>
   </div>
 </main>
+<div id="rsvpModal" role="dialog" aria-modal="true" aria-label="Confirmação de presença">
+  <div class="janela">
+    <header><h3>Confirme sua presença</h3><button class="fechar" type="button" aria-label="Fechar">×</button></header>
+    <iframe id="rsvpFrame" title="Formulário de confirmação de presença" data-src="https://docs.google.com/forms/d/e/1FAIpQLSfkgm9OCHzLTSFLRkgaYv2OIfsqUptTaNj_9mgLKucPTzSp9w/viewform?embedded=true" loading="lazy"></iframe>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -290,8 +304,14 @@
   document.getElementById('pular').addEventListener('click',mostrarConvite);
 
   /* confirmação (link ainda não definido) */
-  var rsvp=document.getElementById('rsvp');
-  if(rsvp) rsvp.addEventListener('click',function(e){ e.preventDefault(); });
+  var rsvp=document.getElementById('rsvp'), modal=document.getElementById('rsvpModal'), frame=document.getElementById('rsvpFrame');
+  function abreRsvp(e){ if(e) e.preventDefault(); if(!frame.src) frame.src=frame.dataset.src;
+    modal.classList.add('aberto'); document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden'; }
+  function fechaRsvp(){ modal.classList.remove('aberto'); document.documentElement.style.overflow=''; document.body.style.overflow=''; }
+  if(rsvp) rsvp.addEventListener('click',abreRsvp);
+  modal.querySelector('.fechar').addEventListener('click',fechaRsvp);
+  modal.addEventListener('click',function(e){ if(e.target===modal) fechaRsvp(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') fechaRsvp(); });
 
   /* contagem */
   var alvo=new Date('2027-01-29T21:00:00-03:00').getTime();
