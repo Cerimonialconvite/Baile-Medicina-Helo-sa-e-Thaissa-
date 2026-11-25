@@ -29,7 +29,7 @@
   html,body{background:#082d22}
   body{font-family:"Cormorant Garamond",Georgia,serif;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
   #convite{max-width:540px;margin:0 auto;position:relative;box-shadow:0 0 40px rgba(0,0,0,.5)}
-  .arte{position:relative;width:100%;aspect-ratio:1080/7531;overflow:hidden;opacity:0;transition:opacity 1.2s ease}
+  .arte{position:relative;width:100%;aspect-ratio:1080/7531;overflow:hidden;opacity:0;transition:opacity .6s ease}
   .arte.pronta{opacity:1}
   .fundo img{display:block;width:100%;height:auto}
   .ov{position:absolute;display:block}
@@ -43,16 +43,19 @@
   /* entradas */
   [data-fx]{opacity:0}
   [data-fx].vis{opacity:1}
-  [data-fx="escreve"]{clip-path:inset(-30% 100% -30% 0);transition:clip-path 1.9s cubic-bezier(.45,.05,.3,1),opacity .5s}
-  [data-fx="escreve"].vis{clip-path:inset(-30% -3% -30% 0)}
-  [data-fx="sobe"]{transform:translateY(16px);filter:blur(5px);transition:opacity 1.2s ease,transform 1.2s ease,filter 1.2s ease}
-  [data-fx="sobe"].vis{transform:none;filter:none}
-  [data-fx="abre"]{clip-path:inset(0 50% 0 50%);transition:clip-path 1.3s cubic-bezier(.5,0,.2,1),opacity .3s}
-  [data-fx="abre"].vis{clip-path:inset(0 0 0 0)}
-  [data-fx="zoom"]{transform:scale(.8);filter:blur(8px);transition:opacity 1.2s ease,transform 1.4s cubic-bezier(.2,.8,.2,1),filter 1.2s}
-  [data-fx="zoom"].vis{transform:none;filter:none}
-  [data-fx="pop"]{transform:scale(.4);transition:opacity .6s,transform .9s cubic-bezier(.34,1.56,.64,1)}
-  [data-fx="pop"].vis{transform:none}
+  .ov .in{display:block;position:relative;width:100%;height:100%}
+  [data-fx]{transition:opacity 1s ease}
+  [data-fx="escreve"]{transition:opacity .3s}
+  [data-fx="escreve"] .in{clip-path:inset(-30% 100% -30% 0);transition:clip-path 1.9s cubic-bezier(.45,.05,.3,1)}
+  [data-fx="escreve"].vis .in{clip-path:inset(-30% -3% -30% 0)}
+  [data-fx="sobe"] .in{transform:translateY(16px);filter:blur(5px);transition:transform 1.2s ease,filter 1.2s ease}
+  [data-fx="sobe"].vis .in{transform:none;filter:none}
+  [data-fx="abre"] .in{clip-path:inset(0 50% 0 50%);transition:clip-path 1.3s cubic-bezier(.5,0,.2,1)}
+  [data-fx="abre"].vis .in{clip-path:inset(0 0 0 0)}
+  [data-fx="zoom"] .in{transform:scale(.8);filter:blur(8px);transition:transform 1.4s cubic-bezier(.2,.8,.2,1),filter 1.2s}
+  [data-fx="zoom"].vis .in{transform:none;filter:none}
+  [data-fx="pop"] .in{transform:scale(.4);transition:transform .9s cubic-bezier(.34,1.56,.64,1)}
+  [data-fx="pop"].vis .in{transform:none}
   [data-fx="flor"]{transition:opacity 2s ease}
   .balanca{width:100%;height:100%;animation:balanca 6s ease-in-out infinite alternate;will-change:transform}
   @keyframes balanca{from{transform:rotate(calc(var(--a) * -1))}to{transform:rotate(var(--a))}}
@@ -69,8 +72,8 @@
   @keyframes luz{0%{opacity:0;transform:scale(.6)}35%{opacity:.9}100%{opacity:0;transform:scale(1.15)}}
   .brasao .letra{opacity:0;transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.2,.8,.2,1)}
   .brasao .le{transform:translateX(-8px)} .brasao .ld{transform:translateX(8px)}
-  .brasao.play .le{opacity:1;transform:none;transition-delay:1.45s}
-  .brasao.play .ld{opacity:1;transform:none;transition-delay:1.6s}
+  .brasao.play .le{opacity:1;transform:none;transition-delay:.95s}
+  .brasao.play .ld{opacity:1;transform:none;transition-delay:1.05s}
   .brasao.estatico [mask]{mask:none}
 
   /* contagem */
@@ -95,7 +98,7 @@
   .chegou{display:none;margin-top:calc(var(--u)*24);font-family:"Cinzel Decorative",serif;font-size:calc(var(--u)*54);color:var(--verde-txt)}
 
   @media (prefers-reduced-motion: reduce){
-    [data-fx],.cg{transition:none!important;transform:none!important;filter:none!important;clip-path:none!important}
+    [data-fx] .in,.cg{transition:none!important;transform:none!important;filter:none!important;clip-path:none!important}
     .balanca,.brilho,.fio{animation:none!important}
   }
 </style>
@@ -120,27 +123,27 @@
  </linearGradient>
  <mask id="mArco" maskUnits="userSpaceOnUse" x="-20" y="-20" width="320" height="280">
   <path d="M 135.50 0.10 A 111.9 111.9 0 0 0 23.75 106.14" class="mk" pathLength="100" stroke="#fff" stroke-width="14" fill="none" stroke-dasharray="100 100" stroke-dashoffset="100">
-   <animate attributeName="stroke-dashoffset" values="100;0" dur="1.3s" begin="ini.begin+0s" fill="freeze" calcMode="spline" keySplines=".45 0 .25 1" keyTimes="0;1"/></path>
+   <animate attributeName="stroke-dashoffset" values="100;0" dur="1s" begin="ini.begin+0s" fill="freeze" calcMode="spline" keySplines=".45 0 .25 1" keyTimes="0;1"/></path>
   <path d="M 135.50 0.10 A 111.9 111.9 0 0 1 247.25 106.14" pathLength="100" stroke="#fff" stroke-width="14" fill="none" stroke-dasharray="100 100" stroke-dashoffset="100">
-   <animate attributeName="stroke-dashoffset" values="100;0" dur="1.3s" begin="ini.begin+0s" fill="freeze" calcMode="spline" keySplines=".45 0 .25 1" keyTimes="0;1"/></path>
+   <animate attributeName="stroke-dashoffset" values="100;0" dur="1s" begin="ini.begin+0s" fill="freeze" calcMode="spline" keySplines=".45 0 .25 1" keyTimes="0;1"/></path>
  </mask>
  <mask id="mLouroE" maskUnits="userSpaceOnUse" x="-20" y="-20" width="320" height="280">
   <path d="M 143.03 219.74 A 108 108 0 0 1 34.01 75.06" pathLength="100" stroke="#fff" stroke-width="96" fill="none" stroke-dasharray="100 100" stroke-dashoffset="100">
-   <animate attributeName="stroke-dashoffset" values="100;0" dur="1.6s" begin="ini.begin+1.9s" fill="freeze" calcMode="spline" keySplines=".3 0 .35 1" keyTimes="0;1"/></path>
+   <animate attributeName="stroke-dashoffset" values="100;0" dur="1.3s" begin="ini.begin+1.15s" fill="freeze" calcMode="spline" keySplines=".3 0 .35 1" keyTimes="0;1"/></path>
  </mask>
  <mask id="mLouroD" maskUnits="userSpaceOnUse" x="-20" y="-20" width="320" height="280">
   <path d="M 127.97 219.74 A 108 108 0 0 0 236.99 75.06" pathLength="100" stroke="#fff" stroke-width="96" fill="none" stroke-dasharray="100 100" stroke-dashoffset="100">
-   <animate attributeName="stroke-dashoffset" values="100;0" dur="1.6s" begin="ini.begin+1.9s" fill="freeze" calcMode="spline" keySplines=".3 0 .35 1" keyTimes="0;1"/></path>
+   <animate attributeName="stroke-dashoffset" values="100;0" dur="1.3s" begin="ini.begin+1.15s" fill="freeze" calcMode="spline" keySplines=".3 0 .35 1" keyTimes="0;1"/></path>
  </mask>
  <mask id="mBastao" maskUnits="userSpaceOnUse" x="-20" y="-20" width="320" height="280">
   <rect x="120" y="165" width="40" height="0" fill="#fff">
-   <animate attributeName="y" values="165;60" dur=".9s" begin="ini.begin+.5s" fill="freeze" calcMode="spline" keySplines=".5 0 .2 1" keyTimes="0;1"/>
-   <animate attributeName="height" values="0;110" dur=".9s" begin="ini.begin+.5s" fill="freeze" calcMode="spline" keySplines=".5 0 .2 1" keyTimes="0;1"/></rect>
+   <animate attributeName="y" values="165;60" dur=".75s" begin="ini.begin+.25s" fill="freeze" calcMode="spline" keySplines=".5 0 .2 1" keyTimes="0;1"/>
+   <animate attributeName="height" values="0;110" dur=".75s" begin="ini.begin+.25s" fill="freeze" calcMode="spline" keySplines=".5 0 .2 1" keyTimes="0;1"/></rect>
  </mask>
  <mask id="mSerp" maskUnits="userSpaceOnUse" x="-20" y="-20" width="320" height="280">
   <rect x="115" y="150" width="50" height="0" fill="#fff">
-   <animate attributeName="y" values="150;70" dur="1.1s" begin="ini.begin+1.1s" fill="freeze" calcMode="spline" keySplines=".4 0 .3 1" keyTimes="0;1"/>
-   <animate attributeName="height" values="0;85" dur="1.1s" begin="ini.begin+1.1s" fill="freeze" calcMode="spline" keySplines=".4 0 .3 1" keyTimes="0;1"/></rect>
+   <animate attributeName="y" values="150;70" dur=".9s" begin="ini.begin+.65s" fill="freeze" calcMode="spline" keySplines=".4 0 .3 1" keyTimes="0;1"/>
+   <animate attributeName="height" values="0;85" dur=".9s" begin="ini.begin+.65s" fill="freeze" calcMode="spline" keySplines=".4 0 .3 1" keyTimes="0;1"/></rect>
  </mask>
 </defs>
 <animate id="ini" attributeName="opacity" begin="indefinite" dur=".01s" values="1;1"/>
@@ -154,28 +157,28 @@
  <g mask="url(#mLouroD)"><path d="M 241.339844 163.882812 C 243.328125 161.28125 245.894531 159.308594 248.914062 157.960938 C 255.929688 154.828125 261.144531 149.804688 264.945312 143.125 C 266.691406 140.046875 269 137.296875 270.976562 134.507812 C 260.972656 136.09375 252.671875 140.769531 247.488281 150.152344 C 246.410156 152.109375 245.519531 154.160156 244.628906 156.210938 C 243.375 159.109375 241.464844 161.480469 239.652344 163.214844 C 241.074219 158.75 242.488281 154.179688 243.941406 149.570312 L 243.945312 149.5625 C 243.949219 149.554688 243.953125 149.535156 243.964844 149.511719 C 244.152344 148.902344 244.34375 148.296875 244.542969 147.6875 C 244.550781 147.664062 244.554688 147.648438 244.5625 147.628906 C 245.222656 145.191406 246.207031 140.464844 246.390625 133.351562 C 246.644531 133.152344 246.894531 132.960938 247.144531 132.777344 C 247.988281 130.910156 249.046875 129.117188 250.410156 127.414062 C 252.117188 125.285156 253.214844 122.507812 254.011719 119.855469 C 255.402344 115.269531 254.648438 110.625 253.542969 105.734375 C 249.21875 110.789062 246.144531 116 245.761719 122.300781 C 245.335938 120.761719 245.011719 119.199219 244.914062 117.585938 C 244.339844 115.730469 243.777344 113.945312 243.46875 112.125 C 243.070312 109.78125 242.964844 107.324219 243.125 104.941406 C 243.636719 97.332031 240.316406 91.328125 235.363281 85.527344 C 234.257812 90.417969 233.511719 95.054688 234.898438 99.648438 C 235.695312 102.296875 236.792969 105.078125 238.492188 107.207031 C 242.363281 112.039062 243.847656 117.597656 244.523438 123.503906 C 244.808594 126.035156 244.839844 128.589844 244.992188 131.140625 C 244.78125 131.1875 244.570312 131.230469 244.363281 131.277344 C 243.5625 128.867188 242.480469 126.523438 242.03125 124.050781 C 241.125 119.070312 238.902344 114.972656 234.964844 111.804688 C 232.597656 109.898438 230.183594 108.054688 227.804688 106.199219 C 227 110.621094 230.113281 118.34375 234.171875 121.839844 C 234.929688 122.492188 235.6875 123.183594 236.558594 123.652344 C 242.640625 126.957031 244.257812 132.585938 244.210938 138.867188 C 244.175781 144.265625 242.640625 149.429688 240.933594 154.519531 C 240.417969 156.0625 239.789062 157.570312 239.066406 159.023438 C 239.234375 156.296875 239.460938 153.582031 239.539062 150.851562 C 239.585938 149.152344 239.433594 147.449219 239.316406 145.753906 C 239.207031 144.304688 238.976562 142.949219 239.914062 141.546875 C 240.789062 140.25 240.207031 138.847656 239.285156 137.636719 C 238.414062 136.503906 237.585938 135.339844 236.761719 134.171875 C 236.160156 133.332031 235.589844 132.46875 235.007812 131.617188 L 234.589844 131.839844 C 235.019531 132.871094 235.585938 133.878906 235.84375 134.957031 C 236.042969 135.777344 236.082031 136.773438 235.804688 137.550781 C 234.921875 139.972656 235.246094 141.351562 237.246094 142.957031 C 237.632812 143.269531 237.867188 143.882812 237.976562 144.402344 C 238.144531 145.199219 238.152344 146.03125 238.199219 146.855469 C 238.226562 147.375 238.203125 147.90625 237.964844 148.507812 C 237.597656 147.683594 237.226562 146.851562 236.859375 146.027344 C 236.699219 146.066406 236.542969 146.113281 236.378906 146.152344 C 236.445312 146.984375 236.410156 147.839844 236.601562 148.644531 C 238.78125 157.90625 236.976562 166.40625 231.621094 174.15625 C 228.753906 178.304688 225.703125 182.332031 222.730469 186.414062 C 222.578125 186.324219 222.417969 186.242188 222.265625 186.152344 C 222.550781 185.464844 222.835938 184.785156 223.109375 184.09375 C 225.242188 178.617188 227.421875 173.160156 229.476562 167.660156 C 231.640625 161.859375 231.820312 155.929688 230.238281 149.960938 C 229.109375 145.714844 227.878906 141.492188 226.550781 136.757812 C 224.9375 141.273438 223.289062 145.425781 221.996094 149.6875 C 220.265625 155.355469 220.367188 161.15625 222.25 166.734375 C 226.136719 178.214844 221.53125 187.210938 214.03125 195.234375 C 210.570312 198.929688 206.433594 201.980469 202.589844 205.328125 C 202.429688 205.179688 202.273438 205.035156 202.109375 204.882812 C 204.195312 201.601562 206.195312 198.257812 208.398438 195.0625 C 211.582031 190.453125 214.074219 185.574219 214.875 179.96875 C 216 172.132812 213.578125 165.128906 209.753906 158.136719 C 206.359375 167.0625 202.675781 175.679688 204.742188 185.265625 C 207.136719 196.363281 202.511719 204.535156 193.910156 210.667969 C 189.1875 214.042969 183.726562 216.378906 178.59375 219.1875 C 178.417969 218.933594 178.242188 218.691406 178.058594 218.441406 C 180.242188 216.355469 182.390625 214.238281 184.613281 212.199219 C 188.4375 208.699219 191.863281 204.875 193.3125 199.785156 C 194.054688 197.160156 194.457031 194.375 194.597656 191.640625 C 194.828125 187.15625 194.714844 182.65625 194.742188 178.257812 C 188.582031 185.359375 182.847656 192.925781 182.515625 203.21875 C 182.476562 204.449219 182.355469 205.683594 182.230469 206.910156 C 181.6875 212.242188 179.023438 216.25 174.667969 219.28125 C 172.425781 220.84375 170.019531 221.984375 167.515625 222.914062 C 160.207031 225.09375 152.953125 226.335938 146.132812 226.972656 C 145.875 227.542969 145.640625 228.136719 145.449219 228.75 C 148.585938 228.445312 151.726562 228.027344 154.832031 227.496094 C 156.160156 227.269531 157.484375 227.019531 158.8125 226.757812 C 161.902344 226.132812 164.933594 225.359375 167.964844 224.402344 C 169.214844 224.003906 170.410156 223.480469 171.660156 223.078125 C 172.371094 222.847656 173.082031 222.597656 173.789062 222.359375 C 175.375 221.820312 176.949219 221.273438 178.515625 220.699219 C 183.050781 219.050781 187.628906 217.789062 192.46875 218.480469 C 193.976562 218.699219 195.640625 219.246094 196.808594 220.175781 C 200.507812 223.140625 204.597656 225.160156 209.136719 226.460938 C 210.953125 226.984375 212.601562 228.105469 214.40625 228.996094 C 213.621094 225.207031 211.839844 222.003906 208.667969 219.683594 C 208.222656 219.359375 207.359375 219.324219 206.792969 219.507812 C 204.683594 220.167969 202.8125 219.621094 201.945312 218.289062 C 203.042969 218.488281 204.507812 218.976562 205.949219 218.914062 C 206.621094 218.882812 207.246094 217.785156 207.894531 217.175781 C 207.175781 216.742188 206.476562 215.976562 205.742188 215.949219 C 204.464844 215.914062 203.171875 216.320312 201.882812 216.542969 C 201.714844 216.574219 201.566406 216.730469 201.402344 216.730469 C 196.703125 216.738281 191.992188 216.738281 187.425781 216.738281 C 191 214.570312 194.933594 212.722656 199.292969 211.855469 C 200.332031 211.652344 201.367188 211.4375 202.410156 211.238281 C 205.332031 210.667969 208.097656 210.613281 210.96875 211.980469 C 218.683594 215.65625 226.464844 215.058594 234.328125 211.671875 C 226.261719 206.84375 218.113281 204.453125 209.105469 208.613281 C 207.765625 209.234375 206.148438 209.285156 204.652344 209.546875 C 202.519531 209.921875 200.375 210.25 197.875 210.65625 C 200.667969 208.644531 203.242188 206.871094 205.722656 204.980469 C 211.894531 200.285156 218.652344 198.316406 226.425781 199.882812 C 231.304688 200.863281 236.171875 200.289062 240.8125 198.421875 C 245.175781 196.664062 249.507812 194.851562 254.371094 194.738281 C 250.070312 191.648438 245.363281 189.691406 240.125 189.183594 C 232.957031 188.492188 226.769531 191.082031 220.933594 194.957031 C 218.523438 196.554688 215.90625 197.847656 213.390625 199.273438 C 213.191406 199.019531 212.992188 198.761719 212.796875 198.5 C 217.464844 193.957031 221.902344 189.125 226.890625 184.964844 C 230.320312 182.097656 234.503906 180.132812 238.382812 177.820312 C 238.839844 177.550781 239.542969 177.476562 240.078125 177.585938 C 245.457031 178.675781 250.023438 176.824219 254.296875 173.792969 C 256.953125 171.898438 259.652344 170.070312 262.257812 168.269531 C 258.675781 167.589844 254.78125 167.417969 250.964844 168.574219 C 250.113281 168.832031 249.449219 169.949219 248.832031 170.769531 C 247.855469 172.085938 246.976562 173.46875 244.960938 173.964844 C 246.691406 171.890625 248.265625 170.03125 249.796875 168.128906 C 250.085938 167.777344 250.214844 167.285156 250.402344 166.855469 C 249.917969 166.820312 249.296875 166.5625 248.964844 166.769531 C 246.773438 168.140625 244.414062 169.128906 242.5625 171.21875 C 240.25 173.828125 238.242188 176.894531 234.609375 178.199219 C 232.507812 178.957031 230.675781 180.449219 228.292969 181.859375 C 229.660156 179.925781 230.738281 178.359375 231.863281 176.820312 C 235.007812 172.5 238.089844 168.128906 241.339844 163.882812"/></g>
 </g>
 </svg></div>
-<div class="ov " data-fx="escreve" data-d="0" style="left:11.3889%;top:28.4956%;width:76.3889%;aspect-ratio:825/58" ><img src="img/nome1.webp" alt="Dra. Heloísa Menezes" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/nome1.webp);mask-image:url(img/nome1.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="500" style="left:45.1852%;top:29.7437%;width:7.4074%;aspect-ratio:80/72" ><img src="img/ecom.webp" alt="&" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/ecom.webp);mask-image:url(img/ecom.webp)"></i></div>
-<div class="ov " data-fx="escreve" data-d="700" style="left:16.1111%;top:31.2973%;width:66.9444%;aspect-ratio:723/52" ><img src="img/nome2.webp" alt="Dra. Thaissa Musse" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/nome2.webp);mask-image:url(img/nome2.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="300" style="left:8.7037%;top:33.3289%;width:83.3333%;aspect-ratio:900/117" ><img src="img/convida.webp" alt="Convida você para celebrar essa conquista tão especial em uma noite de elegância, emoção e momentos inesquecíveis: seu baile de formatura." decoding="async"></div>
-<div class="ov " data-fx="sobe" data-d="0" style="left:38.0556%;top:38.7332%;width:24.1667%;aspect-ratio:261/58" ><img src="img/mes.webp" alt="Janeiro" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/mes.webp);mask-image:url(img/mes.webp)"></i></div>
-<div class="ov " data-fx="abre" data-d="250" style="left:15.2778%;top:40.6321%;width:69.4444%;aspect-ratio:750/77" ><img src="img/moldura.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/moldura.webp);mask-image:url(img/moldura.webp)"></i></div>
-<div class="ov " data-fx="zoom" data-d="450" style="left:41.2963%;top:40.1408%;width:16.6667%;aspect-ratio:180/138" ><img src="img/dia.webp" alt="29" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/dia.webp);mask-image:url(img/dia.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="800" style="left:19.7222%;top:40.9375%;width:11.6667%;aspect-ratio:126/32" ><img src="img/sexta.webp" alt="Sexta" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/sexta.webp);mask-image:url(img/sexta.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="900" style="left:68.7037%;top:40.8578%;width:11.2963%;aspect-ratio:122/42" ><img src="img/hora.webp" alt="21:00" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/hora.webp);mask-image:url(img/hora.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="1050" style="left:40.0926%;top:42.7832%;width:20.0000%;aspect-ratio:216/76" ><img src="img/ano.webp" alt="2027" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/ano.webp);mask-image:url(img/ano.webp)"></i></div>
+<div class="ov " data-fx="escreve" data-d="0" style="left:11.3889%;top:28.4956%;width:76.3889%;aspect-ratio:825/58" ><span class="in"><img src="img/nome1.webp" alt="Dra. Heloísa Menezes" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/nome1.webp);mask-image:url(img/nome1.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="500" style="left:45.1852%;top:29.7437%;width:7.4074%;aspect-ratio:80/72" ><span class="in"><img src="img/ecom.webp" alt="&" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/ecom.webp);mask-image:url(img/ecom.webp)"></i></span></div>
+<div class="ov " data-fx="escreve" data-d="700" style="left:16.1111%;top:31.2973%;width:66.9444%;aspect-ratio:723/52" ><span class="in"><img src="img/nome2.webp" alt="Dra. Thaissa Musse" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/nome2.webp);mask-image:url(img/nome2.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="300" style="left:8.7037%;top:33.3289%;width:83.3333%;aspect-ratio:900/117" ><span class="in"><img src="img/convida.webp" alt="Convida você para celebrar essa conquista tão especial em uma noite de elegância, emoção e momentos inesquecíveis: seu baile de formatura." decoding="async"></span></div>
+<div class="ov " data-fx="sobe" data-d="0" style="left:38.0556%;top:38.7332%;width:24.1667%;aspect-ratio:261/58" ><span class="in"><img src="img/mes.webp" alt="Janeiro" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/mes.webp);mask-image:url(img/mes.webp)"></i></span></div>
+<div class="ov " data-fx="abre" data-d="250" style="left:15.2778%;top:40.6321%;width:69.4444%;aspect-ratio:750/77" ><span class="in"><img src="img/moldura.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/moldura.webp);mask-image:url(img/moldura.webp)"></i></span></div>
+<div class="ov " data-fx="zoom" data-d="450" style="left:41.2963%;top:40.1408%;width:16.6667%;aspect-ratio:180/138" ><span class="in"><img src="img/dia.webp" alt="29" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/dia.webp);mask-image:url(img/dia.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="800" style="left:19.7222%;top:40.9375%;width:11.6667%;aspect-ratio:126/32" ><span class="in"><img src="img/sexta.webp" alt="Sexta" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/sexta.webp);mask-image:url(img/sexta.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="900" style="left:68.7037%;top:40.8578%;width:11.2963%;aspect-ratio:122/42" ><span class="in"><img src="img/hora.webp" alt="21:00" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/hora.webp);mask-image:url(img/hora.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="1050" style="left:40.0926%;top:42.7832%;width:20.0000%;aspect-ratio:216/76" ><span class="in"><img src="img/ano.webp" alt="2027" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/ano.webp);mask-image:url(img/ano.webp)"></i></span></div>
 <div class="ov flor" data-fx="flor" data-d="0" style="left:0.0000%;top:64.3075%;width:100.0000%;aspect-ratio:1080/609"><div class="balanca" style="transform-origin:0% 55%;--a:0.55deg;animation-duration:7.4s;animation-delay:-2.2s"><img src="img/lirio5.webp" alt="" decoding="async"></div></div>
 <div class="ov flor" data-fx="flor" data-d="0" style="left:0.0000%;top:64.3075%;width:23.5185%;aspect-ratio:254/520"><div class="balanca" style="transform-origin:0% 75%;--a:1.3deg;animation-duration:6.6s;animation-delay:-4.0s"><img src="img/lirio6.webp" alt="" decoding="async"></div></div>
-<div class="ov " data-fx="sobe" data-d="0" style="left:26.2963%;top:72.4472%;width:44.8148%;aspect-ratio:484/56" ><img src="img/dress.webp" alt="Dress code" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/dress.webp);mask-image:url(img/dress.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="350" style="left:36.1111%;top:73.7883%;width:27.8704%;aspect-ratio:301/31" ><img src="img/esporte.webp" alt="Esporte fino" decoding="async"></div>
-<div class="ov " data-fx="sobe" data-d="0" style="left:26.2963%;top:77.2275%;width:50.0926%;aspect-ratio:541/80" ><img src="img/local.webp" alt="Localização" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/local.webp);mask-image:url(img/local.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="300" style="left:17.9630%;top:78.8740%;width:63.9815%;aspect-ratio:691/118" ><img src="img/endereco.webp" alt="Cerimonial Caminho das Árvores, Alameda das Framboesas, 151 - Caminho das Árvores, Salvador - BA" decoding="async"></div>
-<div class="ov " data-fx="sobe" data-d="200" style="left:15.4630%;top:81.7023%;width:69.1667%;aspect-ratio:747/444" ><img src="img/foto.webp" alt="Fachada do Cerimonial Caminho das Árvores" decoding="async"></div>
-<a class="ov botao" data-fx="pop" data-d="0" style="left:24.6296%;top:89.4304%;width:20.4630%;aspect-ratio:221/221" href="https://www.google.com/maps/search/?api=1&query=Cerimonial+Caminho+das+%C3%81rvores%2C+Alameda+das+Framboesas%2C+151%2C+Caminho+das+%C3%81rvores%2C+Salvador+-+BA" target="_blank" rel="noopener" aria-label="Abrir localização no Google Maps"><img src="img/btnmapa.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/btnmapa.webp);mask-image:url(img/btnmapa.webp)"></i></a>
-<a class="ov botao" data-fx="pop" data-d="180" style="left:56.9444%;top:89.4304%;width:20.5556%;aspect-ratio:222/221" id="rsvp" role="button" aria-label="Confirmar presença"><img src="img/btnrsvp.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/btnrsvp.webp);mask-image:url(img/btnrsvp.webp)"></i></a>
-<div class="ov " data-fx="sobe" data-d="300" style="left:22.6852%;top:93.1882%;width:23.1481%;aspect-ratio:250/37" ><img src="img/txtmapa.webp" alt="Localização" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/txtmapa.webp);mask-image:url(img/txtmapa.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="420" style="left:55.6481%;top:93.1616%;width:23.1481%;aspect-ratio:250/65" ><img src="img/txtrsvp.webp" alt="Confirme sua presença" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/txtrsvp.webp);mask-image:url(img/txtrsvp.webp)"></i></div>
-<div class="ov " data-fx="sobe" data-d="600" style="left:31.6667%;top:95.6845%;width:38.4259%;aspect-ratio:415/79" ><img src="img/clique.webp" alt="Clique no ícone para interagir!" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/clique.webp);mask-image:url(img/clique.webp)"></i></div>
+<div class="ov " data-fx="sobe" data-d="0" style="left:26.2963%;top:72.4472%;width:44.8148%;aspect-ratio:484/56" ><span class="in"><img src="img/dress.webp" alt="Dress code" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/dress.webp);mask-image:url(img/dress.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="350" style="left:36.1111%;top:73.7883%;width:27.8704%;aspect-ratio:301/31" ><span class="in"><img src="img/esporte.webp" alt="Esporte fino" decoding="async"></span></div>
+<div class="ov " data-fx="sobe" data-d="0" style="left:26.2963%;top:77.2275%;width:50.0926%;aspect-ratio:541/80" ><span class="in"><img src="img/local.webp" alt="Localização" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/local.webp);mask-image:url(img/local.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="300" style="left:17.9630%;top:78.8740%;width:63.9815%;aspect-ratio:691/118" ><span class="in"><img src="img/endereco.webp" alt="Cerimonial Caminho das Árvores, Alameda das Framboesas, 151 - Caminho das Árvores, Salvador - BA" decoding="async"></span></div>
+<div class="ov " data-fx="sobe" data-d="200" style="left:15.4630%;top:81.7023%;width:69.1667%;aspect-ratio:747/444" ><span class="in"><img src="img/foto.webp" alt="Fachada do Cerimonial Caminho das Árvores" decoding="async"></span></div>
+<a class="ov botao" data-fx="pop" data-d="0" style="left:24.6296%;top:89.4304%;width:20.4630%;aspect-ratio:221/221" href="https://www.google.com/maps/search/?api=1&query=Cerimonial+Caminho+das+%C3%81rvores%2C+Alameda+das+Framboesas%2C+151%2C+Caminho+das+%C3%81rvores%2C+Salvador+-+BA" target="_blank" rel="noopener" aria-label="Abrir localização no Google Maps"><span class="in"><img src="img/btnmapa.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/btnmapa.webp);mask-image:url(img/btnmapa.webp)"></i></span></a>
+<a class="ov botao" data-fx="pop" data-d="180" style="left:56.9444%;top:89.4304%;width:20.5556%;aspect-ratio:222/221" id="rsvp" role="button" aria-label="Confirmar presença"><span class="in"><img src="img/btnrsvp.webp" alt="" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/btnrsvp.webp);mask-image:url(img/btnrsvp.webp)"></i></span></a>
+<div class="ov " data-fx="sobe" data-d="300" style="left:22.6852%;top:93.1882%;width:23.1481%;aspect-ratio:250/37" ><span class="in"><img src="img/txtmapa.webp" alt="Localização" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/txtmapa.webp);mask-image:url(img/txtmapa.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="420" style="left:55.6481%;top:93.1616%;width:23.1481%;aspect-ratio:250/65" ><span class="in"><img src="img/txtrsvp.webp" alt="Confirme sua presença" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/txtrsvp.webp);mask-image:url(img/txtrsvp.webp)"></i></span></div>
+<div class="ov " data-fx="sobe" data-d="600" style="left:31.6667%;top:95.6845%;width:38.4259%;aspect-ratio:415/79" ><span class="in"><img src="img/clique.webp" alt="Clique no ícone para interagir!" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/clique.webp);mask-image:url(img/clique.webp)"></i></span></div>
 <section class="contagem" aria-label="Contagem regressiva" style="top:53.6449%;height:10.6228%">
  <h2 class="cg" data-d="0">Faltam</h2>
  <div class="orna cg" data-d="150"><span></span><b></b><span></span></div>
@@ -232,14 +235,14 @@
     document.getElementById('ini').beginElement();
     brasao.classList.add('play');
     var logo=brasao.parentNode;
-    setTimeout(function(){ logo.classList.add('luz'); document.getElementById('foilAnim').beginElement(); },3500);
+    setTimeout(function(){ logo.classList.add('luz'); document.getElementById('foilAnim').beginElement(); },2500);
     setInterval(function(){ try{ document.getElementById('foilAnim').beginElement(); }catch(e){} },7000);
   }
 
   /* entradas */
   function revela(el){
     var d=+(el.dataset.d||0);
-    var portao=Math.max(0,inicio+1900-Date.now());   // nada aparece antes do brasão
+    var portao=Math.max(0,inicio+1300-Date.now());   // nada aparece antes do brasão
     setTimeout(function(){ el.classList.add('vis'); },(semMov?0:portao+d));
   }
   function iniciaEntradas(){
@@ -254,7 +257,7 @@
   var primeira=arte.querySelector('.fundo img');
   function comecar(){
     arte.classList.add('pronta');
-    setTimeout(function(){ tocarBrasao(); iniciaEntradas(); },700);
+    setTimeout(function(){ tocarBrasao(); iniciaEntradas(); },150);
   }
   if(primeira.complete) comecar(); else { primeira.addEventListener('load',comecar); primeira.addEventListener('error',comecar); }
 
