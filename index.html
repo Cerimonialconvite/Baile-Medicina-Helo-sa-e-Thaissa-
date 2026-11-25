@@ -21,7 +21,7 @@
 <link rel="icon" href="img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="preload" href="img/capa.jpg" as="image">
 <style>
   :root{--verde:#0b3a2c;--verde-txt:#0e3a2d;--ouro:#c9a040;--ouro-esc:#80611f;--u:0.36px}
@@ -79,6 +79,7 @@
   .balanca{width:100%;height:100%;animation:balanca 6s ease-in-out infinite alternate;will-change:transform}
   @keyframes balanca{from{transform:rotate(calc(var(--a) * -1))}to{transform:rotate(var(--a))}}
   .texto p{text-align:center;color:#f6f6f4;font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;font-style:italic;font-size:calc(var(--u)*56.5);line-height:1.28}
+  .nota p{text-align:center;color:#f6f6f4;font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;font-style:italic;font-size:calc(var(--u)*42);line-height:1.2}
   .botao{cursor:pointer;border-radius:50%}
   .botao:active img{transform:scale(.95)}
   .botao.vis::after{content:"";position:absolute;inset:0;border-radius:50%;animation:pulso 2.6s ease-in-out infinite}
@@ -203,6 +204,7 @@
 <div class="ov flor" data-fx="flor" data-d="0" style="left:0.0000%;top:64.3075%;width:23.5185%;aspect-ratio:254/520"><div class="balanca" style="transform-origin:0% 75%;--a:1.3deg;animation-duration:6.6s;animation-delay:-4.0s"><img src="img/lirio6.webp" alt="" decoding="async"></div></div>
 <div class="ov " data-fx="sobe" data-d="0" style="left:26.2963%;top:72.4472%;width:44.8148%;aspect-ratio:484/56" ><span class="in"><img src="img/dress.webp" alt="Dress code" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/dress.webp);mask-image:url(img/dress.webp)"></i></span></div>
 <div class="ov " data-fx="sobe" data-d="350" style="left:36.1111%;top:73.7883%;width:27.8704%;aspect-ratio:301/31" ><span class="in"><img src="img/esporte.webp" alt="Esporte fino" decoding="async"></span></div>
+<div class="ov nota" data-fx="sobe" data-d="550" style="left:0;top:74.6514%;width:100%"><span class="in"><p>Cor verde exclusiva para as formandas</p></span></div>
 <div class="ov " data-fx="sobe" data-d="0" style="left:26.2963%;top:77.2275%;width:50.0926%;aspect-ratio:541/80" ><span class="in"><img src="img/local.webp" alt="Localização" decoding="async"><i class="brilho" style="-webkit-mask-image:url(img/local.webp);mask-image:url(img/local.webp)"></i></span></div>
 <div class="ov " data-fx="sobe" data-d="300" style="left:17.9630%;top:78.8740%;width:63.9815%;aspect-ratio:691/118" ><span class="in"><img src="img/endereco.webp" alt="Cerimonial Caminho das Árvores, Alameda das Framboesas, 151 - Caminho das Árvores, Salvador - BA" decoding="async"></span></div>
 <div class="ov " data-fx="sobe" data-d="200" style="left:15.4630%;top:81.7023%;width:69.1667%;aspect-ratio:747/444" ><span class="in"><img src="img/foto.webp" alt="Fachada do Cerimonial Caminho das Árvores" decoding="async"></span></div>
